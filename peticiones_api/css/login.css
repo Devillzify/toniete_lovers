@@ -1,0 +1,112 @@
+body{
+    height: 100vh;
+    margin: 0;
+}
+
+.login{
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(90deg, rgba(40,31,173,1) 0%, rgba(219,37,182,1) 49%, rgba(0,212,255,1) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cuadro{
+    width: 50%;
+    height: 50%;
+    border-radius: 10%;
+
+}
+
+#datos{
+    width: 100%;
+    height: 80%;
+    background-color: rgb(151, 45, 216);
+    border-top-right-radius: 30%;
+    box-shadow: 2px 2px 2px 2px black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#register{
+    width: 100%;
+    height: 20%;
+    background-color: rgb(180, 138, 229);
+    border-bottom-left-radius: 20% 90%;
+    box-shadow: 2px 2px 2px 2px black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#dato{
+    width: 90%;
+    height: 70%;
+}
+
+form{
+    width: 100%;
+    height: 100%;
+}
+
+.user{
+    width: 100%;
+    height: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.labeluser{
+    width: 100%;
+    height: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20pt;
+    font-weight: bold;
+}
+
+#usuario{
+    width: 80%;
+    height: 60%;
+    font-size: 20pt;
+}
+
+.pass{
+    width: 100%;
+    height: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#password{
+    width: 80%;
+    height: 60%;
+    font-size: 20pt;
+}
+
+#email{
+    width: 80%;
+    height: 60%;
+    font-size: 20pt;
+}
+
+.but{
+    width: 100%;
+    height: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#boton{
+    width: 50%;
+    height: 100%;
+    font-weight: bold;
+    font-size: 25pt;
+}
+

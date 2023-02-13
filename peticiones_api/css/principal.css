@@ -1,0 +1,48 @@
+#respuesta{
+    width: 100%;
+}
+
+#cuadrogrande{
+    background-color: blue;
+    width: 45%;
+    margin-top: 3%;
+}
+
+th{
+    border: solid 1px black;
+    background-color: grey;
+}
+.gridjs-td{
+    border: solid 1px black;
+    background-color: rgb(156, 155, 155);
+}
+
+
+body{
+    background-color: cadetblue;
+    width: 100%;
+    height: 100%;
+}
+
+#wrapper{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+table{
+    width: 90%;
+    height: 90%;
+}
+
+.gridjs-footer{
+    border: solid 1px black;
+    width: 89.7%;
+    background-color: rgb(174, 171, 171);
+}
+
+img{
+    width: 30%;
+}
