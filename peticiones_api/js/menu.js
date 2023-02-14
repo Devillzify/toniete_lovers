@@ -42,6 +42,18 @@ const template = [
             },
         ]
     },
+    {
+        label: 'Ubicacion',
+        submenu: [
+            {
+                label: 'Mapas alojamiento',
+                click: async () => {
+                    const { mainWindow } = require('./main')
+                    mainWindow.loadFile("./html/maps.html")
+                }
+            },
+        ]
+    },
 ]
 
 const menu = Menu.buildFromTemplate(template)
