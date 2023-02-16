@@ -79,7 +79,7 @@ ipcMain.on('enviarLogin', (e, args) => {
     //  e.sender.send('respostaPrincipal',`${chunk}`);
       //console.log(JSON.parse(chunk).data.token)
       token = JSON.parse(chunk).data.token;
-      verificarToken(token);
+      //verificarToken(token);
       console.log(token);
     })
     
