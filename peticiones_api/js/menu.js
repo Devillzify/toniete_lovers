@@ -31,10 +31,10 @@ const template = [
             }]
     },
     {
-        label: 'Tabla',
+        label: 'Table',
         submenu: [
             {
-                label: 'Tablas',
+                label: 'Table',
                 click: async () => {
                     const { mainWindow } = require('./main')
                     mainWindow.loadFile("./html/tabla.html")
@@ -43,10 +43,10 @@ const template = [
         ]
     },
     {
-        label: 'Ubicacion',
+        label: 'Map',
         submenu: [
             {
-                label: 'Mapas alojamiento',
+                label: 'Map',
                 click: async () => {
                     const { mainWindow } = require('./main')
                     mainWindow.loadFile("./html/maps.html")

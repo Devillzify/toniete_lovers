@@ -21,6 +21,8 @@ boton.addEventListener('click', () => {
   });
 })
 
+/* recoger token */
+ipcRenderer.on('token',(e,args)=> {
 
-
-
+  console.log("en el renderer");
+}); 

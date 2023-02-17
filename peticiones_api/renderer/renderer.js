@@ -8,31 +8,32 @@ let habitacion = 1;
 let banio = 1;
 let valoracion = 1;
 let obj;
-let contador;
-let contadorb;
-let contadorv;
+let contador = 0;
+let contadorb = 0;
+let contadorv = 0;
 
 
 ipcRenderer.on('resposta', (e, args) => {
 
 obj = JSON.parse(args);
+console.log(obj.data);
 var resposta = $('#respuesta')           
 resposta.empty();
 
 
     obj.data.forEach(element => {
-   
-    let nombre = $(`<div id="cuadrogrande"><div class="row"><div class="col-12 nombrecasa"><u>${element.nom}</u></div></div>`);
-    let habitacions = $(`<div class="row">
-    <div class="col-4 desc">Habitaciones: ${element.nhabitacions}</div>
-    <div class="col-4 desc">Número de baños:${element.nbanys}</div>
-    <div class="col-4 desc">Valoracion:${element.valoracio}</div>
-    </div>`);
-    let imagen = $(`<div class="row" id="contenedorImagen"><div class="col-12"><img src="../imagenes/casalarga.png" class="imagen"></div></div>`);    
-    let value = $(`<div id="descripcion">Descripcio: ${element.descripcio}</div></div>`);
+    if(element.aprovat ==  1){
+      let nombre = $(`<div id="cuadrogrande"><div class="row"><div class="col-12 nombrecasa"><u>${element.nom}</u></div></div>`);
+      let habitacions = $(`<div class="row">
+      <div class="col-4 desc">Habitaciones: ${element.nhabitacions}</div>
+      <div class="col-4 desc">Número de baños:${element.nbanys}</div>
+      <div class="col-4 desc">Valoracion:${element.valoracio}</div>
+      </div>`);
+      let imagen = $(`<div class="row" id="contenedorImagen"><div class="col-12"><img src="${element.fotos[0].url}" class="imagen"></div></div>`);    
+      let value = $(`<div id="descripcion">${element.descripcio}</div></div>`);
+      resposta.append(nombre.append(habitacions,imagen,value));
+    }
     //let contacto = $(`<div id="contacto">Contacte:email: ${element.propietari.email} numero: ${element.propietari.telefon}</div></div>`);
-    resposta.append(nombre.append(habitacions,imagen,value));
-    
 }); 
     resposta.removeAttr('style')
 });
@@ -51,8 +52,8 @@ function pillarvalorhabitacion(){
     <div class="col-4 desc">Habitaciones: ${element.nhabitacions}</div>
     <div class="col-4 desc">Número de baños:${element.nbanys}</div>
     <div class="col-4 desc">Valoracion:${element.valoracio}</div></div>`);
-    let imagen = $(`<div class="row" id="contenedorImagen"><div class="col-12"><img src="../imagenes/casalarga.png" class="imagen"></div></div>`);    
-    let value = $(`<div id="descripcion">Descripcio: ${element.descripcio}</div></div>`);
+    let imagen = $(`<div class="row" id="contenedorImagen"><div class="col-12"><img src="${element.fotos[0].url}" class="imagen"></div></div>`);    
+    let value = $(`<div id="descripcion">${element.descripcio}</div></div>`);
     //let contacto = $(`<div id="contacto">Contacte:email: ${element.propietari.email} numero: ${element.propietari.telefon}</div></div>`);
     resposta.append(nombre.append(habitacions,imagen,value));
     }  
@@ -70,9 +71,8 @@ function pillarvalorhabitacion(){
     var resposta = $('#respuesta')           
     resposta.empty();
 
-
     obj.data.forEach(element => {
-    if(element.nbanys == banios){
+    if(element.nbanys == banios && element.aprovat == 1){
     contadorb = contadorb + 1;
     let nombre = $(`<div id="cuadrogrande"><div class="row"><div class="col-12 nombrecasa"><u>${element.nom}</u></div></div>`);
     let habitacions = $(`<div class="row">
@@ -80,18 +80,19 @@ function pillarvalorhabitacion(){
     <div class="col-4 desc">Número de baños:${element.nbanys}</div>
 
     <div class="col-4 desc">Valoracion:${element.valoracio}</div></div>`);
-    let imagen = $(`<div class="row" id="contenedorImagen"><div class="col-12"><img src="../imagenes/casalarga.png" class="imagen"></div></div>`);    
-    let value = $(`<div id="descripcion">Descripcio: ${element.descripcio}</div></div>`);
+    let imagen = $(`<div class="row" id="contenedorImagen"><div class="col-12"><img src="${element.fotos[0].url}" class="imagen"></div></div>`);    
+    let value = $(`<div id="descripcion">${element.descripcio}</div></div>`);
     //let contacto = $(`<div id="contacto">Contacte:email: ${element.propietari.email} numero: ${element.propietari.telefon}</div></div>`);
     resposta.append(nombre.append(habitacions,imagen,value));
     }  
 }); 
-if(contadorb == 0)
-{
-  resposta.append('<div id="notFound">No se han encontrado casas con ese filtro</div>')
-}
-    resposta.removeAttr('style')
+  if(contadorb == 0)
+  {
+    resposta.append('<div id="notFound">No se han encontrado casas con ese filtro</div>')
   }
+  contadorb=0;
+    resposta.removeAttr('style')
+}
  
   function pillarvalorvaloracion(){
     valoracion = event.target.value;
@@ -101,19 +102,30 @@ if(contadorb == 0)
 
 
     obj.data.forEach(element => {
-    if(element.valoracio >= valoracion){
+    if(element.valoracio >= valoracion && element.aprovat == 1){
+      contadorv = contadorv +1;
     let nombre = $(`<div id="cuadrogrande"><div class="row"><div class="col-12 nombrecasa"><u>${element.nom}</u></div></div>`);
     let habitacions = $(`<div class="row">
     <div class="col-4 desc">Habitaciones: ${element.nhabitacions}</div>
     <div class="col-4 desc">Número de baños:${element.nbanys}</div>
-
     <div class="col-4 desc">Valoracion:${element.valoracio}</div></div>`);
-    let imagen = $(`<div class="row" id="contenedorImagen"><div class="col-12"><img src="../imagenes/casalarga.png" class="imagen"></div></div>`);    
-    let value = $(`<div id="descripcion">Descripcio: ${element.descripcio}</div></div>`);
+    let imagen = $(`<div class="row" id="contenedorImagen"><div class="col-12"><img src="${element.fotos[0].url}" class="imagen"></div></div>`);    
+    let value = $(`<div id="descripcion">${element.descripcio}</div></div>`);
     //let contacto = $(`<div id="contacto">Contacte:email: ${element.propietari.email} numero: ${element.propietari.telefon}</div></div>`);
     resposta.append(nombre.append(habitacions,imagen,value));
     }  
 }); 
+if(contadorv == 0)
+{
+  resposta.append('<div id="notFound">No se han encontrado casas con ese filtro</div>')
+}
+contadorv=0;
     resposta.removeAttr('style')
   }
  
+
+/* recoger token */
+ipcRenderer.on('token',(e,args)=>{
+  console.log("en el renderer");
+  window.open.href("../html/admin.html");
+}); 

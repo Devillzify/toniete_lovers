@@ -12,3 +12,12 @@ body{
     height: 100%;
     width: 100%;
 }
+
+#imagenpopup{
+    width: 100%;
+    height: 50%;
+}
+
+.imagen{
+    width: 100%;
+}
