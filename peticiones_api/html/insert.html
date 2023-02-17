@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+    <link rel="stylesheet" href="../css/insert.css" />
+</head>
+
+<body>
+    <div class="center-form">
+        <form>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputEmail4">Nombre alojamiento:</label>
+                    <input type="email" class="form-control" id="nombreAlojamiento">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputPassword4">Calle:</label>
+                    <input type="password" class="form-control" id="calle" >
+                </div>
+            </div>
+
+            <div class="form-row ">
+                <div class="form-group col-md-4">
+                    <label for="inputAddress">Numero de registro</label>
+                    <input type="text" class="form-control" id="numeroRegistro" placeholder="1234 Main St">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="inputAddress2">Latitud: </label>
+                    <input type="text" class="form-control" id="latitud"
+                        placeholder="Apartment, studio, or floor">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="inputCity">Longitud:</label>
+                    <input type="text" class="form-control" id="longitud">
+                </div>
+            </div>
+
+            <div class="form-row ">
+                <div class="form-group col-md-4">
+                    <label for="inputAddress">Numero </label>
+                    <input type="text" class="form-control" id="numero">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="inputAddress2">Piso</label>
+                    <input type="text" class="form-control" id="piso"
+                        placeholder="Apartment, studio, or floor">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="inputCity">ID Municipio</label>
+                    <input type="text" class="form-control" id="idMunicipio">
+                </div>
+            </div>
+
+            <div class="form-row ">
+                <div class="form-group col-md-3">
+                    <label for="inputAddress">Nº Personas:</label>
+                    <select class="form-control" id="nPersonas">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option selected>4</option>
+                        <option>5</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="inputAddress2">Nº Baños:</label>
+                    <select class="form-control" id="nBanos">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option selected>4</option>
+                        <option>5</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="inputCity">Nº Habitaciones:</label>
+                    <select class="form-control" id="nHabitaciones">
+                        <option>1</option>
+                        <option selected>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="inputState">Nº Camas</label>
+                    <select class="form-control" id="nCamas">
+                        <option selected>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row ">
+                <div class="form-group col-md-3">
+                    <label for="inputAddress">Tipo Alojamiento:</label>
+                    <input type="text" class="form-control" id="tipoAlojamiento" >
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="inputAddress2">Tipo vacaciones:</label>
+                    <input type="text" class="form-control" id="tipoVacaciones"
+                        placeholder="">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="inputCity" readonly>ID Propietario:</label>
+                    <input type="text" class="form-control" id="inputCity" placeholder="29394" readonly>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="inputState">Categoria:</label>
+                    <select id="inputState" class="form-control">
+                        <option selected>Choose...</option>
+                        <option>...</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-9">
+                    <label for="exampleFormControlTextarea1">Descripcion:</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="2"></textarea>
+                </div>
+
+                <div class="form-group col-md-3" id="boton">
+                    <button type="submit" class="btn btn-primary">Sign in</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script src="../renderer/login.js"></script>
+</body>
+
+</html>

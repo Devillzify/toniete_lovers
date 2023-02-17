@@ -31,7 +31,19 @@ const template = [
             }]
     },
     {
-        label: 'Map',
+        label: 'Table',
+        submenu: [
+            {
+                label: 'Table',
+                click: async () => {
+                    const { mainWindow } = require('./main')
+                    mainWindow.loadFile("./html/tabla.html")
+                }
+            },
+        ]
+    },
+    {
+        label: 'Utils',
         submenu: [
             {
                 label: 'Map',
@@ -40,11 +52,30 @@ const template = [
                     mainWindow.loadFile("./html/maps.html")
                 }
             },
+            {
+                label: 'Graphs',
+                click: async () => {
+                    const { mainWindow } = require('./main')
+                    mainWindow.loadFile("./html/graphs.html")
+                }
+            },
+        ]
+    },
+    {
+        label: 'Administrador',
+        submenu: [
+            {
+                label: 'Modificar Casa / Insertar nueva Casa',
+                click: async () => {
+                    const { mainWindow } = require('./main')
+                    mainWindow.loadFile("./html/insert.html")
+                }
+            },
         ]
     },
 ]
 
-const menu = Menu.buildFromTemplate(template)
-module.exports.menu = menu;
-Menu.setApplicationMenu(menu)
+const menu2 = Menu.buildFromTemplate(template)
+module.exports.menu2 = menu2;
+Menu.setApplicationMenu(menu2)
 

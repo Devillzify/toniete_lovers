@@ -6,7 +6,7 @@ let resposta;
 var mainWindow;
 
 function createWindow () {
-  const mainWindow = new BrowserWindow({
+    mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {
@@ -84,7 +84,8 @@ ipcMain.on('enviarLogin', (e, args) => {
       e.sender.send('token',token);
       if(token!=null)
       {
-       console.log("Esta logeado")
+        const { menu2 } = require("../js/menu2");
+        mainWindow.loadFile("./html/index.html")
       }
       else{
         console.log("no esta logeado");
@@ -118,3 +119,14 @@ ipcMain.on('empiesamapa',(e,args)=>{
   request.end();
 })
 
+// inviar datos a graficos
+ipcMain.on("graph",(e,args)=>{
+  const { net } = require('electron')
+  const request = net.request('http://etv.dawpaucasesnoves.com/etvServidor/public/api/allotjaments')
+  request.on('response', (response) => {
+    response.on('data', (chunk) => {
+      e.sender.send('resgraph',`${chunk}`);
+    })
+  })
+  request.end();
+})

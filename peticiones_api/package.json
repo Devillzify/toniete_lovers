@@ -21,6 +21,10 @@
   },
   "dependencies": {
     "bootstrap": "^5.2.3",
+    "chart": "^0.1.2",
+    "chart.js": "^4.2.1",
+    "chartjs": "^0.3.24",
+    "graph.js": "^1.21.1",
     "gridjs": "^6.0.6",
     "jquery": "^3.6.3",
     "net": "^1.0.2"
