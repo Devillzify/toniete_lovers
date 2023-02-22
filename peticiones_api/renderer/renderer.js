@@ -123,9 +123,3 @@ contadorv=0;
     resposta.removeAttr('style')
   }
  
-
-/* recoger token */
-ipcRenderer.on('token',(e,args)=>{
-  console.log("en el renderer");
-  window.open.href("../html/admin.html");
-}); 

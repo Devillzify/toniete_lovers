@@ -1,12 +1,13 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow, ipcMain} = require('electron')
+const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('path')
 let token;
 let resposta;
 var mainWindow;
+let respostains;
 
-function createWindow () {
-    mainWindow = new BrowserWindow({
+function createWindow() {
+  mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {
@@ -25,31 +26,31 @@ function createWindow () {
 app.whenReady().then(() => {
   createWindow(),
 
-  app.on('activate', function () {
-    if (BrowserWindow.getAllWindows().length === 0) createWindow()
-  })
+    app.on('activate', function () {
+      if (BrowserWindow.getAllWindows().length === 0) createWindow()
+    })
 })
 app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') app.quit()
 })
 
-ipcMain.on('empiesa',(e, args) =>{
+ipcMain.on('empiesa', (e, args) => {
   const { net } = require('electron')
   const request = net.request('http://etv.dawpaucasesnoves.com/etvServidor/public/api/allotjaments')
   request.on('response', (response) => {
     //console.log(`STATUS: ${response.statusCode}`)
     //console.log(`HEADERS: ${JSON.stringify(response.headers)}`)
     response.on('data', (chunk) => {
-     // console.log(`BODY: ${chunk}`)
-      e.sender.send('resposta',`${chunk}`);
-      e.sender.send('maps',`${chunk}`);
+      // console.log(`BODY: ${chunk}`)
+      e.sender.send('resposta', `${chunk}`);
+      e.sender.send('maps', `${chunk}`);
     })
     response.on('end', () => {
-    //  console.log('No more data in response.')
+      //  console.log('No more data in response.')
     })
   })
   request.end();
-}); 
+});
 
 /** recoger token */
 
@@ -63,36 +64,30 @@ ipcMain.on('enviarLogin', (e, args) => {
     redirect: 'follow'
   });
 
-  var usuario = JSON.stringify(
-  {
-    "email": args.email,
-    "password": args.password
-  });
+  var usuario = JSON.stringify(args);
 
-    requestdos.setHeader("Content-Type", "application/json");
-    requestdos.write(usuario);
-  
+  requestdos.setHeader("Content-Type", "application/json");
+  requestdos.write(usuario);
+
   requestdos.on('response', (response) => {
     //console.log(`STATUS: ${response.statusCode}`)
     console.log(`HEADERS: ${JSON.stringify(response.headers)}`)
     response.on('data', (chunk) => {
       console.log(`BODY: esto ${chunk}`)
-    //  e.sender.send('respostaPrincipal',`${chunk}`);
+      //  e.sender.send('respostaPrincipal',`${chunk}`);
       //console.log(JSON.parse(chunk).data.token)
       token = JSON.parse(chunk).data.token;
       //verificarToken(token);
-      e.sender.send('token',token);
-      if(token!=null)
-      {
+      if (token != null) {
         const { menu2 } = require("../js/menu2");
         mainWindow.loadFile("./html/index.html")
       }
-      else{
+      else {
         console.log("no esta logeado");
       }
       console.log(token);
     })
-    
+    e.sender.send('token', token);
     response.on('end', () => {
       console.log('No more data in response.')
     })
@@ -101,32 +96,67 @@ ipcMain.on('enviarLogin', (e, args) => {
 })
 
 
-ipcMain.on('empiesamapa',(e,args)=>{
+ipcMain.on('empiesamapa', (e, args) => {
   const { net } = require('electron')
   const request = net.request('http://etv.dawpaucasesnoves.com/etvServidor/public/api/allotjaments')
   request.on('response', (response) => {
     //console.log(`STATUS: ${response.statusCode}`)
     //console.log(`HEADERS: ${JSON.stringify(response.headers)}`)
     response.on('data', (chunk) => {
-     // console.log(`BODY: ${chunk}`)
-      e.sender.send('resposta',`${chunk}`);
-      e.sender.send('maps',`${chunk}`);
+      // console.log(`BODY: ${chunk}`)
+      e.sender.send('resposta', `${chunk}`);
+      e.sender.send('maps', `${chunk}`);
     })
     response.on('end', () => {
-    //  console.log('No more data in response.')
+      //  console.log('No more data in response.')
     })
   })
   request.end();
 })
 
 // inviar datos a graficos
-ipcMain.on("graph",(e,args)=>{
+ipcMain.on("graph", (e, args) => {
   const { net } = require('electron')
   const request = net.request('http://etv.dawpaucasesnoves.com/etvServidor/public/api/allotjaments')
   request.on('response', (response) => {
     response.on('data', (chunk) => {
-      e.sender.send('resgraph',`${chunk}`);
+      e.sender.send('resgraph', `${chunk}`);
     })
   })
   request.end();
+})
+
+
+
+ipcMain.on('casaInsert', (e, args) => {
+  console.log("entra en el casa insert");
+  console.log(args.nom);
+  const { net } = require('electron')
+  const requestdos = net.request({
+    method: 'POST',
+    protocol: 'http:',
+    hostname: 'etv.dawpaucasesnoves.com/etvServidor/public/api',
+    path: '/allotjaments',
+    redirect: 'follow'
+  });
+
+  var casa = JSON.stringify(args);
+
+    requestdos.setHeader('Authorization', `Bearer ${token}`);
+    requestdos.setHeader("Content-Type", "application/json");
+    requestdos.write(casa);
+  
+  requestdos.on('response', (response) => {
+    //console.log(`STATUS: ${response.statusCode}`)
+    console.log(`HEADERS: ${JSON.stringify(response.headers)}`)
+    response.on('data', (chunk) => {
+      console.log(`BODY: esto ${chunk}`)
+      respostains = JSON.parse(chunk);
+      console.log(`Esto es el status: ${respostains.status}`);
+    })    
+    response.on('end', () => {
+      console.log('No more data in response.')
+    })
+  })
+  requestdos.end();
 })

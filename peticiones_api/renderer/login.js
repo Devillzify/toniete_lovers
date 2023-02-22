@@ -20,9 +20,3 @@ boton.addEventListener('click', () => {
     "password": password.value
   });
 })
-
-/* recoger token */
-ipcRenderer.on('token',(e,args)=> {
-
-  console.log("en el renderer");
-}); 
