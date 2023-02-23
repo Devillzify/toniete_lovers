@@ -24,7 +24,7 @@ ipcRenderer.on('resgraph', (e, resultado) => {
     // 
             const ctx = document.getElementById('myChart');
             new Chart(ctx, {
-              type: 'pie',
+              type: 'polarArea',
               data: {
                 labels: [banys[0].nom,banys[1].nom,banys[2].nom,banys[3].nom,banys[4].nom,banys[5].nom],
                 datasets: [{
@@ -50,7 +50,7 @@ ipcRenderer.on('resgraph', (e, resultado) => {
         // valoracion
         const txc = document.getElementById('myChart2');
         new Chart(txc, {
-          type: 'bar',
+          type: 'doughnut',
           data: {
             labels: [valoracion[0].nom,valoracion[1].nom,valoracion[2].nom,valoracion[3].nom,valoracion[4].nom,valoracion[5].nom],
             datasets: [{
@@ -101,7 +101,7 @@ ipcRenderer.on('resgraph', (e, resultado) => {
 // valoracion
 const tcx = document.getElementById('myChart4');
 new Chart(tcx, {
-  type: 'doughnut',
+  type: 'line',
   data: {
     labels: [camas[0].nom,camas[1].nom,camas[2].nom,camas[3].nom,camas[4].nom,camas[5].nom],
     datasets: [{

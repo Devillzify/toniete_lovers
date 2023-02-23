@@ -1,28 +1,35 @@
 <html>
+
 <head>
-    <link href="../css/principal.css" rel="stylesheet" />
-      <!--Load the AJAX API-->
-      <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    </head>
+  <link href="../css/graficos.css" rel="stylesheet" />
+  <!--Load the AJAX API-->
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+</head>
+
 <body>
-    <body>
-      <h1>Baños</h1>
-        <div id="graph">
-            <canvas id="myChart"></canvas>
-          </div>
-      <h1>Valoracion</h1>
-          <div id="graph">
-            <canvas id="myChart2"></canvas>
-          </div>
-          <h1>Personas MAX</h1>
-          <div id="graph">
-            <canvas id="myChart3"></canvas>
-          </div>
-          <h1>Numero de camas</h1>
-          <div id="graph">
-            <canvas id="myChart4"></canvas>
-          </div>
-         <!--<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>--> 
-    </body>
-    <script src="../renderer/graphs.js"></script>  
+<div id="container">
+  <div class="graph">
+    <h2>Valoracion</h2>
+    <canvas id="myChart2"></canvas>
+  </div>
+    <div class="graph">
+      <h2>Baños</h2>
+      <canvas id="myChart"></canvas>
+    </div>
+  
+  <div class="graph">
+    <h2>Numero de camas</h2>
+    <canvas id="myChart4"></canvas>
+  </div>
+  <div class="graph">
+    <h2>Personas MAX</h2>
+    <canvas id="myChart3"></canvas>
+  </div>
+  
+  
+</div>
+  <!--<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>-->
+</body>
+<script src="../renderer/graphs.js"></script>
+
 </html>

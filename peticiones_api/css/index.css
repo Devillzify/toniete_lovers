@@ -22,7 +22,7 @@ body{
 }
 
 #login{
-    width: 98%;
+    width: 100%;
     height: 90%;
     font-size: 180%;
     font-weight: bold;
@@ -77,10 +77,10 @@ body{
     justify-content: center;
     align-content: center;
 }
+
 .imagen{
     width: 100%;
     height: 400px;
-   
     box-shadow: 2px 2px 2px  rgb(227, 214, 172);
 }
 

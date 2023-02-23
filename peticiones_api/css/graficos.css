@@ -1,0 +1,19 @@
+#container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    align-items: center;
+    justify-items: center;
+    width: 100%;
+    background-color:brown ;
+    margin: 0 auto;
+    gap:20px;
+}
+h2 {
+    color: white;
+    font: bold;
+}
+canvas {
+    color: white;
+}
+

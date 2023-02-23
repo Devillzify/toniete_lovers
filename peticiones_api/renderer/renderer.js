@@ -52,7 +52,7 @@ function pillarvalorhabitacion(){
     <div class="col-4 desc">Habitaciones: ${element.nhabitacions}</div>
     <div class="col-4 desc">Número de baños:${element.nbanys}</div>
     <div class="col-4 desc">Valoracion:${element.valoracio}</div></div>`);
-    let imagen = $(`<div class="row" id="contenedorImagen"><div class="col-12"><img src="${element.fotos[0].url}" class="imagen"></div></div>`);    
+    let imagen = $(`<div class="row" id="contenedorImagen"><div class="col-12" id="contenedorImagen2"><img src="${element.fotos[0].url}" class="imagen"></div></div>`);    
     let value = $(`<div id="descripcion">${element.descripcio}</div></div>`);
     //let contacto = $(`<div id="contacto">Contacte:email: ${element.propietari.email} numero: ${element.propietari.telefon}</div></div>`);
     resposta.append(nombre.append(habitacions,imagen,value));

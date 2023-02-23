@@ -8,10 +8,9 @@ ipcRenderer.send('empiesa','hola');
 
 ipcRenderer.on('resposta', async (e, args) => {
       
-
    const obj = JSON.parse(args);
    console.log(obj.data);
-    const grid = await new Grid({
+   new Grid({
         columns: ["ID","NOM","DESCRIPCIO"],
         search: true,
         pagination: true,
