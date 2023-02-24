@@ -97,3 +97,12 @@ body{
     font-size: 30pt;
     background-color: silver;
 }
+
+
+
+.botonReload{
+    background-size: 40%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url('../imagenes/reload.png');
+}

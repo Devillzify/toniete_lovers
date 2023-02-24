@@ -7,8 +7,13 @@ var $ = {jquery} = require('jquery');
 ipcRenderer.send('empiesa','hola');
 
 ipcRenderer.on('resposta', async (e, args) => {
-      
+try{
    const obj = JSON.parse(args);
+}
+catch{
+  ipcRenderer.send('empiesa','hola');
+}
+  
    console.log(obj.data);
    new Grid({
         columns: ["ID","NOM","DESCRIPCIO"],
