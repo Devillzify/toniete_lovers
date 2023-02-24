@@ -160,5 +160,23 @@ ipcMain.on('casaInsert', (e, args) => {
 })
 
 
+ipcMain.on('editarCasa', (e, idCasa) => {
+  console.log(idCasa);
+createModalWindow();
 
-/// esto es la rama developer
+})
+
+function createModalWindow() {
+  let modalWindow = new BrowserWindow({
+    width: 1200,
+    height: 1000,
+    modal: true,
+    parent:mainWindow,
+    webPreferences: {
+      preload: path.join(__dirname, './preload.js'),
+      nodeIntegration: true,
+      contextIsolation: false,
+    },
+  })
+  modalWindow.loadFile('./html/modify.html')
+}
