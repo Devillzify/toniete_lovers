@@ -34,7 +34,7 @@ const template = [
         label: 'Table',
         submenu: [
             {
-                label: 'Table',
+                label: 'Modificar Casa',
                 click: async () => {
                     const { mainWindow } = require('./main')
                     mainWindow.loadFile("./html/tabla.html")
@@ -65,7 +65,7 @@ const template = [
         label: 'Administrador',
         submenu: [
             {
-                label: 'Modificar Casa / Insertar nueva Casa',
+                label: 'Insertar nueva Casa',
                 click: async () => {
                     const { mainWindow } = require('./main')
                     mainWindow.loadFile("./html/insert.html")

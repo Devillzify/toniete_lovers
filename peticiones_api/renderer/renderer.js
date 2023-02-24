@@ -14,9 +14,13 @@ let contadorv = 0;
 
 
 ipcRenderer.on('resposta', (e, args) => {
+try{
+  obj = JSON.parse(args);
+}
+catch{
+  ipcRenderer.send('empiesa','hola');
+}
 
-obj = JSON.parse(args);
-console.log(obj.data);
 var resposta = $('#respuesta')           
 resposta.empty();
 
@@ -27,47 +31,93 @@ resposta.empty();
       let habitacions = $(`<div class="row">
       <div class="col-4 desc">Habitaciones: ${element.nhabitacions}</div>
       <div class="col-4 desc">Número de baños:${element.nbanys}</div>
-      <div class="col-4 desc">Valoracion:${element.valoracio}</div>
-      </div>`);
-      let imagen = $(`<div class="row" id="contenedorImagen"><div class="col-12"><img src="${element.fotos[0].url}" class="imagen"></div></div>`);    
+      <div class="col-4 desc">Valoracion:${element.valoracio}</div></div>`);
+      let imagen = $(`<div class="row" id="contenedorImagen"><div class="col-12"><img src="${element.fotos[0].url}" class="imagen"/></div></div>`);    
       let value = $(`<div id="descripcion">${element.descripcio}</div></div>`);
       resposta.append(nombre.append(habitacions,imagen,value));
     }
-    //let contacto = $(`<div id="contacto">Contacte:email: ${element.propietari.email} numero: ${element.propietari.telefon}</div></div>`);
 }); 
-    resposta.removeAttr('style')
 });
 
 function pillarvalorhabitacion(){
     habitacion = event.target.value;
+  
+      if(habitacion == "4")
+      {
+        var resposta = $('#respuesta')           
+        resposta.empty();
+        obj.data.forEach(element => {
+        if(element.nhabitacions >= habitacion && element.aprovat == 1){
+        contador = contador + 1;
+        console.log(element.nhabitacions);
+        let nombre = $(`<div id="cuadrogrande"><div class="row"><div class="col-12 nombrecasa"><u>${element.nom}</u></div></div>`);
+        let habitacions = $(`<div class="row">
+        <div class="col-4 desc">Habitaciones: ${element.nhabitacions}</div>
+        <div class="col-4 desc">Número de baños:${element.nbanys}</div>
+        <div class="col-4 desc">Valoracion:${element.valoracio}</div></div>`);
+        let imagen = $(`<div class="row" id="contenedorImagen"><div class="col-12"><img src="${element.fotos[0].url}" class="imagen"/></div></div>`);    
+        let value = $(`<div id="descripcion">${element.descripcio}</div></div>`);
+        resposta.append(nombre.append(habitacions,imagen,value));
+        }  
+        });
+
+      }
+      else{
+        var resposta = $('#respuesta')           
+        resposta.empty();
+        obj.data.forEach(element => {
+        if(element.nhabitacions == habitacion && element.aprovat == 1){
+        contador = contador + 1;
+        
+        let nombre = $(`<div id="cuadrogrande"><div class="row"><div class="col-12 nombrecasa"><u>${element.nom}</u></div></div>`);
+        let habitacions = $(`<div class="row">
+        <div class="col-4 desc">Habitaciones: ${element.nhabitacions}</div>
+        <div class="col-4 desc">Número de baños:${element.nbanys}</div>
     
-    var resposta = $('#respuesta')           
-    resposta.empty();
-    obj.data.forEach(element => {
-    if(element.nhabitacions == habitacion){
-    contador = contador + 1;
-    
-    let nombre = $(`<div id="cuadrogrande"><div class="row"><div class="col-12 nombrecasa"><u>${element.nom}</u></div></div>`);
-    let habitacions = $(`<div class="row">
-    <div class="col-4 desc">Habitaciones: ${element.nhabitacions}</div>
-    <div class="col-4 desc">Número de baños:${element.nbanys}</div>
-    <div class="col-4 desc">Valoracion:${element.valoracio}</div></div>`);
-    let imagen = $(`<div class="row" id="contenedorImagen"><div class="col-12" id="contenedorImagen2"><img src="${element.fotos[0].url}" class="imagen"></div></div>`);    
-    let value = $(`<div id="descripcion">${element.descripcio}</div></div>`);
-    //let contacto = $(`<div id="contacto">Contacte:email: ${element.propietari.email} numero: ${element.propietari.telefon}</div></div>`);
-    resposta.append(nombre.append(habitacions,imagen,value));
-    }  
-}); 
-    if(contador == 0){
+        <div class="col-4 desc">Valoracion:${element.valoracio}</div></div>`);
+        let imagen = $(`<div class="row" id="contenedorImagen"><div class="col-12"><img src="${element.fotos[0].url}" class="imagen"></div></div>`);    
+        let value = $(`<div id="descripcion">${element.descripcio}</div></div>`);
+        resposta.append(nombre.append(habitacions,imagen,value));
+        
+        }  
+        }); 
+      }
+     if(contador == 0){
       resposta.append('<div id="notFound">No se han encontrado casas con ese filtro</div>')
     }
     contador = 0;
-    resposta.removeAttr('style')
- }
+    }
+
+  
+ 
  
  function pillarvalorbanios(){
     banios = event.target.value;
-    
+    if(banios == 4){
+      var resposta = $('#respuesta')           
+      resposta.empty();
+  
+      obj.data.forEach(element => {
+      if(element.nbanys >= banios && element.aprovat == 1){
+      contadorb = contadorb + 1;
+      let nombre = $(`<div id="cuadrogrande"><div class="row"><div class="col-12 nombrecasa"><u>${element.nom}</u></div></div>`);
+      let habitacions = $(`<div class="row">
+      <div class="col-4 desc">Habitaciones: ${element.nhabitacions}</div>
+      <div class="col-4 desc">Número de baños:${element.nbanys}</div>
+  
+      <div class="col-4 desc">Valoracion:${element.valoracio}</div></div>`);
+      let imagen = $(`<div class="row" id="contenedorImagen"><div class="col-12"><img src="${element.fotos[0].url}" class="imagen"></div></div>`);    
+      let value = $(`<div id="descripcion">${element.descripcio}</div></div>`);
+      resposta.append(nombre.append(habitacions,imagen,value));
+      }  
+  }); 
+    }
+
+    else{
+      if(banios == "reload"){
+        ipcRenderer.send('empiesa','hola');
+      }
+    }
     var resposta = $('#respuesta')           
     resposta.empty();
 
@@ -82,7 +132,6 @@ function pillarvalorhabitacion(){
     <div class="col-4 desc">Valoracion:${element.valoracio}</div></div>`);
     let imagen = $(`<div class="row" id="contenedorImagen"><div class="col-12"><img src="${element.fotos[0].url}" class="imagen"></div></div>`);    
     let value = $(`<div id="descripcion">${element.descripcio}</div></div>`);
-    //let contacto = $(`<div id="contacto">Contacte:email: ${element.propietari.email} numero: ${element.propietari.telefon}</div></div>`);
     resposta.append(nombre.append(habitacions,imagen,value));
     }  
 }); 
@@ -91,7 +140,6 @@ function pillarvalorhabitacion(){
     resposta.append('<div id="notFound">No se han encontrado casas con ese filtro</div>')
   }
   contadorb=0;
-    resposta.removeAttr('style')
 }
  
   function pillarvalorvaloracion(){
@@ -111,7 +159,6 @@ function pillarvalorhabitacion(){
     <div class="col-4 desc">Valoracion:${element.valoracio}</div></div>`);
     let imagen = $(`<div class="row" id="contenedorImagen"><div class="col-12"><img src="${element.fotos[0].url}" class="imagen"></div></div>`);    
     let value = $(`<div id="descripcion">${element.descripcio}</div></div>`);
-    //let contacto = $(`<div id="contacto">Contacte:email: ${element.propietari.email} numero: ${element.propietari.telefon}</div></div>`);
     resposta.append(nombre.append(habitacions,imagen,value));
     }  
 }); 
@@ -120,6 +167,10 @@ if(contadorv == 0)
   resposta.append('<div id="notFound">No se han encontrado casas con ese filtro</div>')
 }
 contadorv=0;
-    resposta.removeAttr('style')
   }
  
+
+  function reload()
+  {
+    ipcRenderer.send('empiesa','hola');
+  }

@@ -9,10 +9,16 @@ let camas;
 
 ipcRenderer.send("graph", "comienza el programa")
 
-
 ipcRenderer.on('resgraph', (e, resultado) => {
-
-    let obj = JSON.parse(resultado);
+  console.log(resultado)
+  let obj;
+try{
+    obj = JSON.parse(resultado);
+}
+catch{
+  ipcRenderer.send("graph", "comienza el programa")
+}
+  
 
     banys = obj.data.sort(function(a, b){
       return a.nbanys - b.nbanys;
