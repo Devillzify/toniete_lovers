@@ -14,12 +14,15 @@ ipcRenderer.on('resposta', async (e, args) => {
         {
         name: "Editar",
         formatter: (_, row) => {
-          return h('Button', {
-            className: 'bg-blue-600',
-            onClick: () => {
-              cambiarVentana(row.cells[0].data, row.cells[1].data);
-            }
-          }, 'Edit');     
+          if(row.cells[1].data==38)
+          {
+            return h('Button', {
+              className: 'bg-blue-600',
+              onClick: () => {
+                cambiarVentana(row.cells[0].data, row.cells[1].data);
+              }
+            }, 'Edit');
+          }  
         }
       }
       ],
@@ -34,6 +37,7 @@ ipcRenderer.on('resposta', async (e, args) => {
 });
 
 function cambiarVentana(idCasa, idPropietario) {
+
   if(idPropietario == 38){
     ipcRenderer.send('editarCasa', idCasa);
   }
