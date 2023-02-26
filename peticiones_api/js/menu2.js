@@ -73,6 +73,18 @@ const template = [
             },
         ]
     },
+    {
+        label: 'Log out',
+        submenu: [
+            {
+                label: 'Log out',
+                click: async () => {
+                    const { resetToken } = require('./main')
+                    resetToken()
+                }
+            },
+        ]
+    },
 ]
 
 const menu2 = Menu.buildFromTemplate(template)

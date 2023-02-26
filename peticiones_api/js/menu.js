@@ -42,6 +42,18 @@ const template = [
             },
         ]
     },
+    {
+        label: 'Login',
+        submenu: [
+            {
+                label: 'Login',
+                click: async () => {
+                    const { mainWindow } = require('./main')
+                    mainWindow.loadFile("./html/login.html")
+                }
+            },
+        ]
+    },
 ]
 
 const menu = Menu.buildFromTemplate(template)

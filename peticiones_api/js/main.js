@@ -1,9 +1,9 @@
 // Modules to control application life and create native browser window
-const { app, BrowserWindow, ipcMain, remote } = require('electron');
-
+const { app, BrowserWindow, ipcMain, remote, Menu } = require('electron');
+const { menu } = require("./menu");
+const { menu2 } = require("./menu2");
 const path = require('path')
 let token;
-let resposta;
 var mainWindow;
 let respostains;
 
@@ -18,7 +18,7 @@ function createWindow() {
     },
   })
   mainWindow.loadFile('./html/index.html')
-  const { menu } = require("../js/menu");
+  Menu.setApplicationMenu(menu)
   mainWindow.webContents.openDevTools()
   module.exports.mainWindow = mainWindow;
 }
@@ -81,7 +81,7 @@ ipcMain.on('enviarLogin', (e, args) => { //request para login
       
     
       if (token != null) {
-        const { menu2 } = require("../js/menu2");
+        Menu.setApplicationMenu(menu2)
         mainWindow.loadFile("./html/index.html")
       }
       else {
@@ -183,3 +183,14 @@ function createModalWindow() {
     child.show()
   })   
 }
+
+
+function resetToken()
+{
+  token = null;
+  Menu.setApplicationMenu(menu)
+  mainWindow.loadFile("./html/index.html")
+  console.log("Log out realizado")
+  console.log(token)
+}
+exports.resetToken = resetToken;

@@ -5,7 +5,7 @@
     align-items: center;
     justify-items: center;
     width: 100%;
-    background-color:brown ;
+    background-color:rgb(206, 206, 206) ;
     margin: 0 auto;
     gap:20px;
 }
@@ -15,5 +15,9 @@ h2 {
 }
 canvas {
     color: white;
+}
+
+body{
+    background-color:rgb(206, 206, 206) ;
 }
 
