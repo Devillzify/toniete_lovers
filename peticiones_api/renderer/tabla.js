@@ -2,7 +2,11 @@ const { ipcRenderer } = require('electron');
 const { Grid, h } = require('gridjs');
 
 var $ = {jquery} = require('jquery');
+let id;
 
+ipcRenderer.on('id',(e,args) => {
+  id=args;
+});
 
 ipcRenderer.send('empiesa','hola');
 
@@ -14,7 +18,7 @@ ipcRenderer.on('resposta', async (e, args) => {
         {
         name: "Editar",
         formatter: (_, row) => {
-          if(row.cells[1].data==38)
+          if(row.cells[1].data==id)
           {
             return h('Button', {
               className: 'bg-blue-600',
@@ -37,11 +41,7 @@ ipcRenderer.on('resposta', async (e, args) => {
 });
 
 function cambiarVentana(idCasa, idPropietario) {
-
-  if(idPropietario == 38){
+  if(idPropietario == id){
     ipcRenderer.send('editarCasa', idCasa);
-  }
-  else {
-    alert(" deja esta en paz")
   }
 }

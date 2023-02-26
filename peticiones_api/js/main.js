@@ -1,5 +1,6 @@
 // Modules to control application life and create native browser window
-const { app, BrowserWindow, ipcMain } = require('electron')
+const { app, BrowserWindow, ipcMain, remote } = require('electron');
+
 const path = require('path')
 let token;
 let resposta;
@@ -33,7 +34,7 @@ app.whenReady().then(() => {
 app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') app.quit()
 })
-
+let id;
 ipcMain.on('empiesa', (e, args) => { // request de alojamiento al comenzar
   var resp;
   const { net } = require('electron')
@@ -45,6 +46,7 @@ ipcMain.on('empiesa', (e, args) => { // request de alojamiento al comenzar
     })
     response.on('end', () => {
         e.sender.send('resposta', resp);
+        e.sender.send('id', id);
     })
   })
   request.end();
@@ -61,6 +63,8 @@ ipcMain.on('enviarLogin', (e, args) => { //request para login
   });
 
   var usuario = JSON.stringify(args);
+
+  
   requestdos.setHeader("Content-Type", "application/json");
   requestdos.write(usuario);
 
@@ -69,6 +73,13 @@ ipcMain.on('enviarLogin', (e, args) => { //request para login
     response.on('data', (chunk) => {
       console.log(`BODY: esto ${chunk}`)
       token = JSON.parse(chunk).data.token;
+      
+      if(token!=null)
+      {
+        id = JSON.parse(chunk).data.usuari.id;
+      }
+      
+    
       if (token != null) {
         const { menu2 } = require("../js/menu2");
         mainWindow.loadFile("./html/index.html")
@@ -78,7 +89,7 @@ ipcMain.on('enviarLogin', (e, args) => { //request para login
       }
       console.log(token);
     })
-    e.sender.send('token', token);
+    
     response.on('end', () => {
       console.log('No more data in response.')
     })
@@ -162,21 +173,13 @@ ipcMain.on('casaInsert', (e, args) => {
 
 ipcMain.on('editarCasa', (e, idCasa) => {
   console.log(idCasa);
-createModalWindow();
-
+createModalWindow();  
 })
 
 function createModalWindow() {
-  let modalWindow = new BrowserWindow({
-    width: 1200,
-    height: 1000,
-    modal: true,
-    parent:mainWindow,
-    webPreferences: {
-      preload: path.join(__dirname, './preload.js'),
-      nodeIntegration: true,
-      contextIsolation: false,
-    },
-  })
-  modalWindow.loadFile('./html/modify.html')
+  const child = new BrowserWindow({ parent: mainWindow, modal: true, show: true })
+  child.loadURL('./html/modify.html')
+  child.once('ready-to-show', () => {
+    child.show()
+  })   
 }
