@@ -1,11 +1,12 @@
 // Modules to control application life and create native browser window
-const { app, BrowserWindow, ipcMain, remote, Menu } = require('electron');
+const { app, BrowserWindow, ipcMain, remote, Menu, net, ipcRenderer } = require('electron');
 const { menu } = require("./menu");
 const { menu2 } = require("./menu2");
 const path = require('path')
 let token;
 var mainWindow;
 let respostains;
+let respostaupd;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -37,7 +38,6 @@ app.on('window-all-closed', function () {
 let id;
 ipcMain.on('empiesa', (e, args) => { // request de alojamiento al comenzar
   var resp;
-  const { net } = require('electron')
   const request = net.request('http://etv.dawpaucasesnoves.com/etvServidor/public/api/allotjaments')
   request.on('response', (response) => {
     resp = "";
@@ -53,7 +53,6 @@ ipcMain.on('empiesa', (e, args) => { // request de alojamiento al comenzar
 });
 
 ipcMain.on('enviarLogin', (e, args) => { //request para login
-  const { net } = require('electron')
   const requestdos = net.request({
     method: 'POST',
     protocol: 'http:',
@@ -69,9 +68,7 @@ ipcMain.on('enviarLogin', (e, args) => { //request para login
   requestdos.write(usuario);
 
   requestdos.on('response', (response) => {
-    console.log(`HEADERS: ${JSON.stringify(response.headers)}`)
     response.on('data', (chunk) => {
-      console.log(`BODY: esto ${chunk}`)
       token = JSON.parse(chunk).data.token;
       
       if(token!=null)
@@ -87,7 +84,6 @@ ipcMain.on('enviarLogin', (e, args) => { //request para login
       else {
         console.log("no esta logeado");
       }
-      console.log(token);
     })
     
     response.on('end', () => {
@@ -100,7 +96,6 @@ ipcMain.on('enviarLogin', (e, args) => { //request para login
 
 ipcMain.on('empiesamapa', (e, args) => {
   var mapa;
-  const { net } = require('electron')
   const request = net.request('http://etv.dawpaucasesnoves.com/etvServidor/public/api/allotjaments')
   request.on('response', (response) => {
     mapa = "";
@@ -121,7 +116,6 @@ ipcMain.on('empiesamapa', (e, args) => {
 // inviar datos a graficos
 ipcMain.on("graph", (e, args) => {
   var graph;
-  const { net } = require('electron')
   const request = net.request('http://etv.dawpaucasesnoves.com/etvServidor/public/api/allotjaments')
   request.on('response', (response) => {
     graph = "";
@@ -138,52 +132,52 @@ ipcMain.on("graph", (e, args) => {
 
 
 ipcMain.on('casaInsert', (e, args) => {
-  console.log("entra en el casa insert");
-  console.log(args.nom);
-  const { net } = require('electron')
   const requestdos = net.request({
     method: 'POST',
     protocol: 'http:',
     hostname: 'etv.dawpaucasesnoves.com/etvServidor/public/api',
     path: '/allotjaments',
     redirect: 'follow'
-  });
+    });
 
-  var casa = JSON.stringify(args);
+    var casa = JSON.stringify(args);
 
     requestdos.setHeader('Authorization', `Bearer ${token}`);
     requestdos.setHeader("Content-Type", "application/json");
     requestdos.write(casa);
   
   requestdos.on('response', (response) => {
-    //console.log(`STATUS: ${response.statusCode}`)
-    console.log(`HEADERS: ${JSON.stringify(response.headers)}`)
     response.on('data', (chunk) => {
-      console.log(`BODY: esto ${chunk}`)
       respostains = JSON.parse(chunk);
-      console.log(`Esto es el status: ${respostains.status}`);
     })    
-    response.on('end', () => {
-      console.log('No more data in response.')
-    })
+    response.on('end', () => {})
   })
   requestdos.end();
 })
 
 
 ipcMain.on('editarCasa', (e, idCasa) => {
-  console.log(idCasa);
-createModalWindow();  
+  console.log(idCasa); 
+
+  const peticionUpd = net.request({
+    method: 'GET',
+    protocol: 'http:',
+    hostname: 'etv.dawpaucasesnoves.com/etvServidor/public/api',
+    path: `/allotjaments/${idCasa}`,
+    redirect: 'follow'
+  });
+  
+  peticionUpd.on('response',(response) => {
+    respostaupd = "";
+    response.on('data', (chunk) => {
+      respostaupd += chunk;
+    });
+    response.on('end', () => {
+     abrirModal()
+    });
+  });
+  peticionUpd.end();
 })
-
-function createModalWindow() {
-  const child = new BrowserWindow({ parent: mainWindow, modal: true, show: true })
-  child.loadURL('./html/modify.html')
-  child.once('ready-to-show', () => {
-    child.show()
-  })   
-}
-
 
 function resetToken()
 {
@@ -194,3 +188,21 @@ function resetToken()
   console.log(token)
 }
 exports.resetToken = resetToken;
+
+
+function abrirModal()
+{
+  const child = new BrowserWindow({ parent: mainWindow, modal: true, show: true,
+    webPreferences: {
+      preload: path.join(__dirname, './preload.js'),
+      nodeIntegration: true,
+      contextIsolation: false,
+    },
+  });
+  
+  child.loadFile('./html/modify.html');
+  child.openDevTools();
+  child.once('ready-to-show', () => {child.show()})  
+}
+
+ipcMain.on("update",(e, args) => {e.sender.send("updateListo", respostaupd)} )
