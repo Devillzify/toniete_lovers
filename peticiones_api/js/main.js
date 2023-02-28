@@ -157,8 +157,6 @@ ipcMain.on('casaInsert', (e, args) => {
 
 
 ipcMain.on('editarCasa', (e, idCasa) => {
-  console.log(idCasa); 
-
   const peticionUpd = net.request({
     method: 'GET',
     protocol: 'http:',
@@ -179,8 +177,7 @@ ipcMain.on('editarCasa', (e, idCasa) => {
   peticionUpd.end();
 })
 
-function resetToken()
-{
+function resetToken(){
   token = null;
   Menu.setApplicationMenu(menu)
   mainWindow.loadFile("./html/index.html")
@@ -190,8 +187,7 @@ function resetToken()
 exports.resetToken = resetToken;
 
 
-function abrirModal()
-{
+function abrirModal() {
   const child = new BrowserWindow({ parent: mainWindow, modal: true, show: true,
     webPreferences: {
       preload: path.join(__dirname, './preload.js'),
@@ -199,10 +195,37 @@ function abrirModal()
       contextIsolation: false,
     },
   });
-  
   child.loadFile('./html/modify.html');
   child.openDevTools();
-  child.once('ready-to-show', () => {child.show()})  
+  child.once('ready-to-show', () => {
+    child.show()
+  })  
 }
 
-ipcMain.on("update",(e, args) => {e.sender.send("updateListo", respostaupd)} )
+ipcMain.on('update',(e, args) => {
+  e.sender.send('updateListo', respostaupd)
+});
+ipcMain.on('casaUpdate', (e, args) => {
+  var casa = JSON.stringify(args);
+  const requestdos = net.request({
+    method: 'PUT',
+    protocol: 'http:',
+    hostname: 'etv.dawpaucasesnoves.com/etvServidor/public/api',
+    path: `/allotjaments/${casa.id}`,
+    redirect: 'follow'
+    });
+
+    
+
+    requestdos.setHeader('Authorization', `Bearer ${token}`);
+    requestdos.setHeader("Content-Type", "application/json");
+    requestdos.write(casa);
+  
+  requestdos.on('response', (response) => {
+    response.on('data', (chunk) => {
+      respostains = JSON.parse(chunk);
+    })    
+    response.on('end', () => {})
+  })
+  requestdos.end();
+})
