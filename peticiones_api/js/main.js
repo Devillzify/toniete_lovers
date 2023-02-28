@@ -205,8 +205,12 @@ function abrirModal() {
 ipcMain.on('update',(e, args) => {
   e.sender.send('updateListo', respostaupd)
 });
+
+
+
 ipcMain.on('casaUpdate', (e, args) => {
   var casa = JSON.stringify(args);
+  console.log(casa);
   const requestdos = net.request({
     method: 'PUT',
     protocol: 'http:',
