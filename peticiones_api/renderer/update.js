@@ -104,27 +104,26 @@ ipcRenderer.on('updateListo', (e, args) => {
     formulario.append(fila1, fila2, fila3, fila4, fila5, fila6)
 })
 
-function llamarCasa()
-{
+function llamarCasa(){
     console.log("recibiendo click");
     var casa = {
-    "nom": document.getElementById("nombreAlojamiento").value,
-    "descripcio":document.getElementById("descripcion").value,
-    "nregistre": document.getElementById("numeroRegistro").value,
-    "npersones": document.getElementById("nPersonas").value,
-    "nbanys": document.getElementById("nBanos").value,
-    "nllits": document.getElementById("nCamas").value,
-    "nhabitacions": document.getElementById("nHabitaciones").value,
-    "carrer": document.getElementById("calle").value,
-    "numero": document.getElementById("numero").value,
-    "pisporta": document.getElementById("piso").value,
-    "municipi_id":document.getElementById("idMunicipio").value,
-    "tipus_allotjament_id": document.getElementById("tipoAlojamiento").value,
-    "tipus_vacances_id": document.getElementById("tipoVacaciones").value,
-    "propietari_id": document.getElementById("propietarioID").value,
-    "categoria_id": document.getElementById("categoriaID").value,
-    "longitud": document.getElementById("longitud").value,
-    "latitud": document.getElementById("latitud").value,
+     "nom": document.getElementById("nombreAlojamiento").value || obj.nom,
+    "descripcio": document.getElementById("descripcion").value || obj.descripcio,
+    "nregistre": document.getElementById("numeroRegistro").value || obj.nregistre,
+    "npersones": document.getElementById("nPersonas").value || obj.npersones,
+    "nbanys": document.getElementById("nBanos").value || obj.nbanys,
+    "nllits": document.getElementById("nCamas").value || obj.nllits,
+    "nhabitacions": document.getElementById("nHabitaciones").value || obj.nhabitacions,
+    "carrer": document.getElementById("calle").value || obj.carrer,
+    "numero": document.getElementById("numero").value || obj.numero,
+    "pisporta": document.getElementById("piso").value || obj.pisporta,
+    "municipi_id": document.getElementById("idMunicipio").value || obj.municipi_id,
+    "tipus_allotjament_id": document.getElementById("tipoAlojamiento").value || obj.tipus_allotjament_id,
+    "tipus_vacances_id": document.getElementById("tipoVacaciones").value || obj.tipus_vacances_id,
+    "propietari_id": document.getElementById("propietarioID").value || obj.propietari_id,
+    "categoria_id": document.getElementById("categoriaID").value || obj.categoria_id,
+    "longitud": document.getElementById("longitud").value || obj.longitud,
+    "latitud": document.getElementById("latitud").value || obj.latitud,
   };
   console.log(casa)
   ipcRenderer.send('casaUpdate',casa);
