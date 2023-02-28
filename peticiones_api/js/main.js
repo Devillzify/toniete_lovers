@@ -218,16 +218,13 @@ ipcMain.on('casaUpdate', (e, args) => {
     path: `/allotjaments/${casa.id}`,
     redirect: 'follow'
     });
-
-    
-
     requestdos.setHeader('Authorization', `Bearer ${token}`);
     requestdos.setHeader("Content-Type", "application/json");
     requestdos.write(casa);
-  
+    console.log("Esperando respuesta")
   requestdos.on('response', (response) => {
     response.on('data', (chunk) => {
-      respostains = JSON.parse(chunk);
+      console.log(JSON.parse(chunk))
     })    
     response.on('end', () => {})
   })
