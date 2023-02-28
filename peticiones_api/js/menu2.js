@@ -31,18 +31,6 @@ const template = [
             }]
     },
     {
-        label: 'Table',
-        submenu: [
-            {
-                label: 'Modificar Casa',
-                click: async () => {
-                    const { mainWindow } = require('./main')
-                    mainWindow.loadFile("./html/tabla.html")
-                }
-            },
-        ]
-    },
-    {
         label: 'Utils',
         submenu: [
             {
@@ -81,6 +69,13 @@ const template = [
                 click: async () => {
                     const { resetToken } = require('./main')
                     resetToken()
+                }
+            },
+            {
+                label: 'Modificar Casa',
+                click: async () => {
+                    const { mainWindow } = require('./main')
+                    mainWindow.loadFile("./html/tabla.html")
                 }
             },
         ]
