@@ -2,6 +2,8 @@
 const { app, BrowserWindow, ipcMain, remote, Menu, net, ipcRenderer } = require('electron');
 const { menu } = require("./menu");
 const { menu2 } = require("./menu2");
+const { default: swal } = require('sweetalert');
+
 const path = require('path')
 let token;
 var mainWindow;
@@ -74,6 +76,7 @@ ipcMain.on('enviarLogin', (e, args) => { //request para login
       if(token!=null)
       {
         id = JSON.parse(chunk).data.usuari.id;
+       
       }
       
     
@@ -82,6 +85,7 @@ ipcMain.on('enviarLogin', (e, args) => { //request para login
         mainWindow.loadFile("./html/index.html")
       }
       else {
+        e.sender.send('nologeado','no');
         console.log("no esta logeado");
       }
     })
@@ -150,7 +154,9 @@ ipcMain.on('casaInsert', (e, args) => {
     response.on('data', (chunk) => {
       respostains = JSON.parse(chunk);
     })    
-    response.on('end', () => {})
+    response.on('end', () => {
+      e.sender.send('salio');
+    })
   })
   requestdos.end();
 })

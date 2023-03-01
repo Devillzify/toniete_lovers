@@ -1,4 +1,5 @@
 const { ipcRenderer } = require('electron');
+const Swal = require('sweetalert2')
 
 var email = document.querySelector('#email');
 var password = document.querySelector('#password');
@@ -11,3 +12,14 @@ boton.addEventListener('click', () => {
     "password": password.value
   });
 })
+
+ipcRenderer.on('nologeado',(e,args)=>{
+  Swal.fire({
+    position: 'top-end',
+    icon: 'error',
+    title: 'Contraseña o email incorrectos',
+    showConfirmButton: false,
+    timer: 1500,
+    position: 'center'
+  })
+});

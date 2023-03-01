@@ -1,6 +1,6 @@
 
 body{
-    background-color:brown ;
+    background-color:rgb(207, 191, 138) ;
 }
 #container {
         display: grid;
@@ -13,7 +13,7 @@ body{
 /*CABECERA*/
 th{
     border: solid 1px black;
-    background-color: rgb(117, 60, 60);
+    background-color: grey;
     color: white;
     text-align: center;
 }
@@ -38,6 +38,6 @@ table{
 .gridjs-footer{
     border: solid 1px black;
     width: 100%;
-    background-color: rgb(117, 60, 60);
+    background-color: grey;
     color: white;
 }

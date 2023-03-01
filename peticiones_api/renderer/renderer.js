@@ -1,4 +1,5 @@
 const { ipcRenderer } = require('electron');
+const Swal = require('sweetalert2')
 
 var $ = {jquery} = require('jquery');
 
@@ -27,7 +28,7 @@ resposta.empty();
 
     obj.data.forEach(element => {
     if(element.aprovat ==  1){
-      let nombre = $(`<div id="cuadrogrande"><div class="row"><div class="col-12 nombrecasa"><u>${element.nom}</u></div></div>`);
+      let nombre = $(`<div id="cuadrogrande"><div class="row"><div class="col-12 nombrecasa" onclick="tarjeta('${element.nom}','${element.fotos[0].url}','${element.valoracio}')"><u>${element.nom}</u></div></div>`);
       let habitacions = $(`<div class="row">
       <div class="col-4 desc">Habitaciones: ${element.nhabitacions}</div>
       <div class="col-4 desc">Número de baños:${element.nbanys}</div>
@@ -35,9 +36,19 @@ resposta.empty();
       let imagen = $(`<div class="row" id="contenedorImagen"><div class="col-12"><img src="${element.fotos[0].url}" class="imagen"/></div></div>`);    
       let value = $(`<div id="descripcion">${element.descripcio}</div></div>`);
       resposta.append(nombre.append(habitacions,imagen,value));
+
     }
 }); 
 });
+
+function tarjeta(nom,url,valoracion){
+  Swal.fire({
+    imageUrl: url,
+    title: nom,
+    text: 'Valoracion:' + valoracion,
+    position: 'center'
+  })
+}
 
 function pillarvalorhabitacion(){
     habitacion = event.target.value;
@@ -50,7 +61,7 @@ function pillarvalorhabitacion(){
         if(element.nhabitacions >= habitacion && element.aprovat == 1){
         contador = contador + 1;
         console.log(element.nhabitacions);
-        let nombre = $(`<div id="cuadrogrande"><div class="row"><div class="col-12 nombrecasa"><u>${element.nom}</u></div></div>`);
+        let nombre = $(`<div id="cuadrogrande"><div class="row"><div class="col-12 nombrecasa" onclick="tarjeta('${element.nom}','${element.fotos[0].url}','${element.valoracio}')"><u>${element.nom}</u></div></div>`);
         let habitacions = $(`<div class="row">
         <div class="col-4 desc">Habitaciones: ${element.nhabitacions}</div>
         <div class="col-4 desc">Número de baños:${element.nbanys}</div>
@@ -69,7 +80,7 @@ function pillarvalorhabitacion(){
         if(element.nhabitacions == habitacion && element.aprovat == 1){
         contador = contador + 1;
         
-        let nombre = $(`<div id="cuadrogrande"><div class="row"><div class="col-12 nombrecasa"><u>${element.nom}</u></div></div>`);
+        let nombre = $(`<div id="cuadrogrande"><div class="row"><div class="col-12 nombrecasa" onclick="tarjeta('${element.nom}','${element.fotos[0].url}','${element.valoracio}')"><u>${element.nom}</u></div></div>`);
         let habitacions = $(`<div class="row">
         <div class="col-4 desc">Habitaciones: ${element.nhabitacions}</div>
         <div class="col-4 desc">Número de baños:${element.nbanys}</div>
@@ -100,7 +111,7 @@ function pillarvalorhabitacion(){
       obj.data.forEach(element => {
       if(element.nbanys >= banios && element.aprovat == 1){
       contadorb = contadorb + 1;
-      let nombre = $(`<div id="cuadrogrande"><div class="row"><div class="col-12 nombrecasa"><u>${element.nom}</u></div></div>`);
+      let nombre = $(`<div id="cuadrogrande"><div class="row"><div class="col-12 nombrecasa" onclick="tarjeta('${element.nom}','${element.fotos[0].url}','${element.valoracio}')"><u>${element.nom}</u></div></div>`);
       let habitacions = $(`<div class="row">
       <div class="col-4 desc">Habitaciones: ${element.nhabitacions}</div>
       <div class="col-4 desc">Número de baños:${element.nbanys}</div>
@@ -124,7 +135,7 @@ function pillarvalorhabitacion(){
     obj.data.forEach(element => {
     if(element.nbanys == banios && element.aprovat == 1){
     contadorb = contadorb + 1;
-    let nombre = $(`<div id="cuadrogrande"><div class="row"><div class="col-12 nombrecasa"><u>${element.nom}</u></div></div>`);
+    let nombre = $(`<div id="cuadrogrande"><div class="row"><div class="col-12 nombrecasa" onclick="tarjeta('${element.nom}','${element.fotos[0].url}','${element.valoracio}')"><u>${element.nom}</u></div></div>`);
     let habitacions = $(`<div class="row">
     <div class="col-4 desc">Habitaciones: ${element.nhabitacions}</div>
     <div class="col-4 desc">Número de baños:${element.nbanys}</div>
@@ -152,7 +163,7 @@ function pillarvalorhabitacion(){
     obj.data.forEach(element => {
     if(element.valoracio >= valoracion && element.aprovat == 1){
       contadorv = contadorv +1;
-    let nombre = $(`<div id="cuadrogrande"><div class="row"><div class="col-12 nombrecasa"><u>${element.nom}</u></div></div>`);
+    let nombre = $(`<div id="cuadrogrande"><div class="row"><div class="col-12 nombrecasa" onclick="tarjeta('${element.nom}','${element.fotos[0].url}','${element.valoracio}')"><u>${element.nom}</u></div></div>`);
     let habitacions = $(`<div class="row">
     <div class="col-4 desc">Habitaciones: ${element.nhabitacions}</div>
     <div class="col-4 desc">Número de baños:${element.nbanys}</div>
