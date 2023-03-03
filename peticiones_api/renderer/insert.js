@@ -36,3 +36,14 @@ boton.addEventListener('click', () => {
       position: 'center'
     })
   }); 
+
+  ipcRenderer.on('saliomal', (e,args) => {
+    Swal.fire({
+      position: 'top-end',
+      icon: 'error',
+      title: 'No se ha podido insertar',
+      showConfirmButton: false,
+      timer: 1500,
+      position: 'center'
+    })
+  }); 

@@ -153,10 +153,14 @@ ipcMain.on('casaInsert', (e, args) => {
   requestdos.on('response', (response) => {
     response.on('data', (chunk) => {
       respostains = JSON.parse(chunk);
+      if(JSON.parse(chunk).status=='success')
+      {
+        e.sender.send('salio');
+      }
+      else{
+        e.sender.send('saliomal');
+      }
     })    
-    response.on('end', () => {
-      e.sender.send('salio');
-    })
   })
   requestdos.end();
 })

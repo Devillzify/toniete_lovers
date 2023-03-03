@@ -1,6 +1,12 @@
 
 body{
-    background-color:rgb(207, 191, 138) ;
+    background-image: linear-gradient(rgb(82, 170, 225), rgb(116, 91, 229));
+    border-collapse: collapse;
+    height: 100vh;
+    border: 0;
+    color: white;
+
+
 }
 #container {
         display: grid;
@@ -13,13 +19,13 @@ body{
 /*CABECERA*/
 th{
     border: solid 1px black;
-    background-color: grey;
+    background-color: rgb(94, 70, 233);
     color: white;
     text-align: center;
 }
 .gridjs-td{
     border: solid 1px black;
-    background-color: rgb(215, 208, 208);
+    background-color:  rgb(142, 125, 239);
     text-align: center;
     margin-left: 5%;
 }
@@ -33,11 +39,12 @@ th{
 
 table{
     width: 80%;
+ 
 }
 
 .gridjs-footer{
     border: solid 1px black;
     width: 100%;
-    background-color: grey;
-    color: white;
+    background-color: rgb(94, 70, 233);
+        color: white;
 }
