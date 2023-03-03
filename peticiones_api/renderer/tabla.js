@@ -27,6 +27,9 @@ ipcRenderer.on('resposta', async (e, args) => {
               }
             }, 'Edit');
           }  
+          else{
+            return "No modificable"
+          }
         }
       }
       ],

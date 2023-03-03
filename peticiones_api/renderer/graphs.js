@@ -6,11 +6,20 @@ let banys;
 let valoracion;
 let personasmax;
 let camas;
+let listabanios = [];
+let cantidadbanios = [];
+let stringBanios = [];
+let listacamas = [];
+let cantidadcamas = [];
+let stringcamas = [];
+let listapersonas = [];
+let cantidadpersonas = [];
+let stringpersonas = [];
 
+let contador = 0;
 ipcRenderer.send("graph", "comienza el programa")
 
 ipcRenderer.on('resgraph', (e, resultado) => {
-  console.log(resultado)
   let obj;
   try {  obj = JSON.parse(resultado);  }
   catch {
@@ -22,14 +31,34 @@ ipcRenderer.on('resgraph', (e, resultado) => {
   }).reverse();
   // 4
   // 
+  obj.data.forEach(element => {
+    if(!listabanios.includes(element.nbanys))
+    {
+      listabanios.push(element.nbanys)
+    }
+  });
+
+  listabanios.forEach(campo =>{
+    banys.forEach(banio=>{
+      if(banio.nbanys == campo){
+        contador = contador + 1}
+    })
+    cantidadbanios.push(contador);
+    contador = 0;
+  })
+
+  listabanios.forEach(elemento =>{
+    stringBanios.push(`Baños: ${elemento}`)
+  })
+
   const ctx = document.getElementById('myChart');
   new Chart(ctx, {
     type: 'polarArea',
     data: {
-      labels: [banys[0].nom, banys[1].nom, banys[2].nom, banys[3].nom, banys[4].nom, banys[5].nom],
+      labels: stringBanios,
       datasets: [{
-        label: '# de baños',
-        data: [banys[0].nbanys, banys[1].nbanys, banys[2].nbanys, banys[3].nbanys, banys[4].nbanys, banys[5].nbanys],
+        label: '#casas',
+        data: cantidadbanios,
         borderWidth: 1
       }]
     },
@@ -54,7 +83,7 @@ ipcRenderer.on('resgraph', (e, resultado) => {
     data: {
       labels: [valoracion[0].nom, valoracion[1].nom, valoracion[2].nom, valoracion[3].nom, valoracion[4].nom, valoracion[5].nom],
       datasets: [{
-        label: '# de Valoracion',
+        label: '#Valoracion',
         data: [valoracion[0].valoracio, valoracion[1].valoracio, valoracion[2].valoracio, valoracion[3].valoracio, valoracion[4].valoracio, valoracion[5].valoracio],
         borderWidth: 1
       }]
@@ -73,15 +102,36 @@ ipcRenderer.on('resgraph', (e, resultado) => {
     return a.npersones - b.npersones;
   }).reverse();
 
+  obj.data.forEach(element => {
+    if(!listapersonas.includes(element.npersones))
+    {
+      listapersonas.push(element.npersones)
+    }
+  });
+
+  listapersonas.forEach(campo =>{
+    personasmax.forEach(persona=>{
+      if(persona.npersones == campo){
+        contador = contador + 1}
+    })
+    cantidadpersonas.push(contador);
+    contador = 0;
+  })
+
+  listapersonas.forEach(elemento =>{
+    stringpersonas.push(`Personas: ${elemento}`)
+  })
+
+
   // valoracion
   const cxt = document.getElementById('myChart3');
   new Chart(cxt, {
     type: 'bar',
     data: {
-      labels: [personasmax[0].nom, personasmax[1].nom, personasmax[2].nom, personasmax[3].nom, personasmax[4].nom, personasmax[5].nom],
+      labels: stringpersonas,
       datasets: [{
-        label: '# de Personas',
-        data: [personasmax[0].npersones, personasmax[1].npersones, personasmax[2].npersones, personasmax[3].npersones, personasmax[4].npersones, personasmax[5].npersones],
+        label: '#Casas',
+        data: cantidadpersonas,
         borderWidth: 1
       }]
     },
@@ -96,15 +146,35 @@ ipcRenderer.on('resgraph', (e, resultado) => {
     return a.nllits - b.nllits;
   }).reverse();
 
+  obj.data.forEach(element => {
+    if(!listacamas.includes(element.nllits))
+    {
+      listacamas.push(element.nllits)
+    }
+  });
+
+  listacamas.forEach(campo =>{
+    camas.forEach(cama=>{
+      if(cama.nllits == campo){
+        contador = contador + 1}
+    })
+    cantidadcamas.push(contador);
+    contador = 0;
+  })
+
+  listacamas.forEach(elemento =>{
+    stringcamas.push(`Camas: ${elemento}`)
+  })
+
   // valoracion
   const tcx = document.getElementById('myChart4');
   new Chart(tcx, {
     type: 'line',
     data: {
-      labels: [camas[0].nom, camas[1].nom, camas[2].nom, camas[3].nom, camas[4].nom, camas[5].nom],
+      labels: stringcamas,
       datasets: [{
-        label: '# de Camas',
-        data: [camas[0].nllits, camas[1].nllits, camas[2].nllits, camas[3].nllits, camas[4].nllits, camas[5].nllits],
+        label: '#Casas',
+        data: cantidadcamas,
         borderWidth: 1
       }]
     },

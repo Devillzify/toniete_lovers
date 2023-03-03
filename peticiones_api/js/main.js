@@ -225,7 +225,6 @@ ipcMain.on('casaUpdate', (e, args) => {
     path: `/allotjaments/${idCasamod}`,
     redirect: 'follow'
     });
-    requestdos.setHeader("accept", "application/json");
     requestdos.setHeader('Authorization', `Bearer ${token}`);
     requestdos.setHeader("Content-Type", "application/json");
     requestdos.write(casa);
