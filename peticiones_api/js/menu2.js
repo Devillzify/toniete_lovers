@@ -59,6 +59,13 @@ const template = [
                     mainWindow.loadFile("./html/insert.html")
                 }
             },
+            {
+                label: 'Modificar Casa',
+                click: async () => {
+                    const { mainWindow } = require('./main')
+                    mainWindow.loadFile("./html/tabla.html")
+                }
+            },
         ]
     },
     {
@@ -69,13 +76,6 @@ const template = [
                 click: async () => {
                     const { resetToken } = require('./main')
                     resetToken()
-                }
-            },
-            {
-                label: 'Modificar Casa',
-                click: async () => {
-                    const { mainWindow } = require('./main')
-                    mainWindow.loadFile("./html/tabla.html")
                 }
             },
         ]
