@@ -9,7 +9,7 @@ let token;
 var mainWindow;
 let respostains;
 let respostaupd;
-
+let idCasamod;
 function createWindow() {
   mainWindow = new BrowserWindow({
     width: 800,
@@ -72,7 +72,7 @@ ipcMain.on('enviarLogin', (e, args) => { //request para login
   requestdos.on('response', (response) => {
     response.on('data', (chunk) => {
       token = JSON.parse(chunk).data.token;
-      
+      console.log(token)
       if(token!=null)
       {
         id = JSON.parse(chunk).data.usuari.id;
@@ -163,6 +163,7 @@ ipcMain.on('casaInsert', (e, args) => {
 
 
 ipcMain.on('editarCasa', (e, idCasa) => {
+  idCasamod = idCasa;
   const peticionUpd = net.request({
     method: 'GET',
     protocol: 'http:',
@@ -221,9 +222,10 @@ ipcMain.on('casaUpdate', (e, args) => {
     method: 'PUT',
     protocol: 'http:',
     hostname: 'etv.dawpaucasesnoves.com/etvServidor/public/api',
-    path: `/allotjaments/${casa.id}`,
+    path: `/allotjaments/${idCasamod}`,
     redirect: 'follow'
     });
+    requestdos.setHeader("accept", "application/json");
     requestdos.setHeader('Authorization', `Bearer ${token}`);
     requestdos.setHeader("Content-Type", "application/json");
     requestdos.write(casa);
@@ -231,8 +233,17 @@ ipcMain.on('casaUpdate', (e, args) => {
   requestdos.on('response', (response) => {
     response.on('data', (chunk) => {
       console.log(JSON.parse(chunk))
+      if(JSON.parse(chunk).status==='success')
+      {
+        e.sender.send('modificadobien');
+      }
+      else{
+        e.sender.send('modificadomal');
+      }
     })    
-    response.on('end', () => {})
+    response.on('end', () => {
+      
+    })
   })
   requestdos.end();
 })

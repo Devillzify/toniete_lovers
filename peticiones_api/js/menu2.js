@@ -41,7 +41,7 @@ const template = [
                 }
             },
             {
-                label: 'Graphs',
+                label: 'DashBoard',
                 click: async () => {
                     const { mainWindow } = require('./main')
                     mainWindow.loadFile("./html/graphs.html")

@@ -1,5 +1,7 @@
 const { ipcRenderer, webContents } = require("electron");
 var $ = { jquery } = require('jquery');
+const Swal = require('sweetalert2')
+
 let obj;
 ipcRenderer.send('update', 'hola');
 
@@ -107,7 +109,8 @@ ipcRenderer.on('updateListo', (e, args) => {
 function llamarCasa(){
     console.log("recibiendo click");
     var casa = {
-     "nom": document.getElementById("nombreAlojamiento").value || obj.nom,
+    "id": obj.id,
+    "nom": document.getElementById("nombreAlojamiento").value || obj.nom,
     "descripcio": document.getElementById("descripcion").value || obj.descripcio,
     "nregistre": document.getElementById("numeroRegistro").value || obj.nregistre,
     "npersones": document.getElementById("nPersonas").value || obj.npersones,
@@ -129,8 +132,27 @@ function llamarCasa(){
   ipcRenderer.send('casaUpdate',casa);
 }
 
-  
+ipcRenderer.on('modificadobien', (e,args) => {
+    Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Se ha modificado correctamente',
+        showConfirmButton: false,
+        timer: 1500,
+        position: 'center'
+      })
+});
 
+ipcRenderer.on('modificadomal', (e,args) => {
+    Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: 'No se ha podido modificar',
+        showConfirmButton: false,
+        timer: 1500,
+        position: 'center'
+      })
+});
 
 
 
